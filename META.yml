@@ -1,0 +1,24 @@
+---
+abstract: 'Wrap subroutines'
+author:
+  - 'Steven Haryanto <stevenharyanto@gmail.com>'
+build_requires:
+  Module::Build: 0.3601
+configure_requires:
+  Module::Build: 0.3601
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.200007, CPAN::Meta::Converter version 2.110930'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Sub-Spec-Wrapper
+requires:
+  Log::Any: 0
+  Sub::Spec: 1.0.1
+  Test::More: 0.96
+  perl: 5.010000
+resources:
+  homepage: http://search.cpan.org/dist/Sub-Spec-Wrapper/
+  repository: http://github.com/sharyanto/perl-Sub-Spec-Wrapper
+version: 0.01

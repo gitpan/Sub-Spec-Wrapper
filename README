@@ -1,0 +1,32 @@
+NAME
+    Sub::Spec::Wrapper - Wrap subroutines
+
+VERSION
+    version 0.01
+
+SYNOPSIS
+     use Sub::Spec::Wrapper;
+
+DESCRIPTION
+    WARNING: PRELIMINARY VERSION, NOT EVERYTHING DESCRIBED IS IMPLEMENTED
+
+    This module provides wrap() that implements/utilizes many spec clauses,
+    like "args", "result", "timeout", etc.
+
+    This module uses Log::Any for logging.
+
+FUNCTIONS
+    None are exported, but they are exportable.
+
+SEE ALSO
+    Sub::Spec
+
+AUTHOR
+    Steven Haryanto <stevenharyanto@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2011 by Steven Haryanto.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
