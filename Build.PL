@@ -12,12 +12,12 @@ my %module_build_args = (
   'configure_requires' => {
     'Module::Build' => '0.3601'
   },
-  'dist_abstract' => 'Wrap subroutines',
+  'dist_abstract' => 'Wrap subroutine to its implement Sub::Spec clauses',
   'dist_author' => [
     'Steven Haryanto <stevenharyanto@gmail.com>'
   ],
   'dist_name' => 'Sub-Spec-Wrapper',
-  'dist_version' => '0.01',
+  'dist_version' => '0.02',
   'license' => 'perl',
   'module_name' => 'Sub::Spec::Wrapper',
   'recommends' => {},

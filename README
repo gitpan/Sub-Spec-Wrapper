@@ -1,22 +1,49 @@
 NAME
-    Sub::Spec::Wrapper - Wrap subroutines
+    Sub::Spec::Wrapper - Wrap subroutine to its implement Sub::Spec clauses
 
 VERSION
-    version 0.01
+    version 0.02
 
 SYNOPSIS
-     use Sub::Spec::Wrapper;
+     use Sub::Spec::Wrapper qw(wrap_sub);
+     my $sub = wrap_sub(sub => sub {die "test\n"}, spec=>{});
+     my $res = $sub->(); # [500, "Sub died: test"]
 
 DESCRIPTION
     WARNING: PRELIMINARY VERSION, NOT EVERYTHING DESCRIBED IS IMPLEMENTED
 
-    This module provides wrap() that implements/utilizes many spec clauses,
-    like "args", "result", "timeout", etc.
+    This module provides wrap_sub() that implements/utilizes many spec
+    clauses, like "args", "result", "timeout", etc, via wrapping.
 
     This module uses Log::Any for logging.
 
 FUNCTIONS
     None are exported, but they are exportable.
+
+  wrap_sub(%args) -> RESULT
+    Wrap subroutine to its implement Sub::Spec clauses.
+
+    Will wrap subroutine with codes that implement Sub::Spec clauses, like
+    ~timeout~ (using Perl's eval block), ~args~ (using Sah schema), etc.
+    Will bless subroutine (into ~Sub::Spec::Wrapped~) to mark that the
+    subroutine has been wrapped.
+
+    Will not wrap again if input subroutine has already been wrapped
+    (blessed), unless ~force~ argument is set to true.
+
+    Arguments ("*" denotes required arguments):
+
+    *   force => *bool* (default 0)
+
+        Whether to force wrap again even when sub has been wrapped.
+
+    *   spec* => *hash*
+
+        The sub spec.
+
+    *   sub* => *code*
+
+        The code to wrap.
 
 SEE ALSO
     Sub::Spec

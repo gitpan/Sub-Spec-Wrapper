@@ -1,5 +1,5 @@
 ---
-abstract: 'Wrap subroutines'
+abstract: 'Wrap subroutine to its implement Sub::Spec clauses'
 author:
   - 'Steven Haryanto <stevenharyanto@gmail.com>'
 build_requires:
@@ -21,4 +21,4 @@ requires:
 resources:
   homepage: http://search.cpan.org/dist/Sub-Spec-Wrapper/
   repository: http://github.com/sharyanto/perl-Sub-Spec-Wrapper
-version: 0.01
+version: 0.02

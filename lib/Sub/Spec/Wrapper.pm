@@ -11,7 +11,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(wrap_sub);
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 our %SPEC;
 
@@ -131,7 +131,7 @@ sub compile {
 }
 
 1;
-# ABSTRACT: Wrap subroutines
+# ABSTRACT: Wrap subroutine to its implement Sub::Spec clauses
 
 
 __END__
@@ -139,28 +139,60 @@ __END__
 
 =head1 NAME
 
-Sub::Spec::Wrapper - Wrap subroutines
+Sub::Spec::Wrapper - Wrap subroutine to its implement Sub::Spec clauses
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
- use Sub::Spec::Wrapper;
+ use Sub::Spec::Wrapper qw(wrap_sub);
+ my $sub = wrap_sub(sub => sub {die "test\n"}, spec=>{});
+ my $res = $sub->(); # [500, "Sub died: test"]
 
 =head1 DESCRIPTION
 
 WARNING: PRELIMINARY VERSION, NOT EVERYTHING DESCRIBED IS IMPLEMENTED
 
-This module provides wrap() that implements/utilizes many spec clauses, like
-C<args>, C<result>, C<timeout>, etc.
+This module provides wrap_sub() that implements/utilizes many spec clauses, like
+C<args>, C<result>, C<timeout>, etc, via wrapping.
 
 This module uses L<Log::Any> for logging.
 
 =head1 FUNCTIONS
 
 None are exported, but they are exportable.
+
+=head2 wrap_sub(%args) -> RESULT
+
+
+Wrap subroutine to its implement Sub::Spec clauses.
+
+Will wrap subroutine with codes that implement Sub::Spec clauses, like ~timeout~
+(using Perl's eval block), ~args~ (using Sah schema), etc. Will bless subroutine
+(into ~Sub::Spec::Wrapped~) to mark that the subroutine has been wrapped.
+
+Will not wrap again if input subroutine has already been wrapped (blessed),
+unless ~force~ argument is set to true.
+
+Arguments (C<*> denotes required arguments):
+
+=over 4
+
+=item * B<force> => I<bool> (default C<0>)
+
+Whether to force wrap again even when sub has been wrapped.
+
+=item * B<spec>* => I<hash>
+
+The sub spec.
+
+=item * B<sub>* => I<code>
+
+The code to wrap.
+
+=back
 
 =head1 SEE ALSO
 
