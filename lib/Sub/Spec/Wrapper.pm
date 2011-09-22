@@ -5,13 +5,14 @@ use strict;
 use warnings;
 use Log::Any '$log';
 
+use Data::Dump::OneLine qw(dump1);
 use Scalar::Util qw(blessed refaddr);
 
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(wrap_sub);
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 our %SPEC;
 
@@ -64,14 +65,48 @@ sub wrap_sub {
     $wrapper->add_line(
         'package Sub::Spec::Wrapped;',
         'sub {',
-        '    my %args = @_;',
+    );
+
+    my $args_as = $spec->{args_as} // "hash";
+    my $args_var;
+    my $args_line;
+    if ($args_as eq 'hash') {
+        $args_var = '%args';
+        $args_line = 'my %args = @_;';
+    } elsif ($args_as eq 'hashref') {
+        $args_var = '$args';
+        $args_line = 'my $args = {@_};';
+    } elsif ($args_as =~ /\A(arrayref|array)\z/) {
+        # temp, eventually will use codegen_convert_args_to_array()
+        $wrapper->add_line(
+            '    require Sub::Spec::ConvertArgs::Array;',
+            '    my $ares = Sub::Spec::ConvertArgs::Array::'.
+                'convert_args_to_array(args=>{@_}, spec=>'.dump1($spec).');',
+            '    return $ares if $ares->[0] != 200;',
+            );
+        if ($args_as eq 'array') {
+            $args_var = '@args';
+            $args_line = 'my @args = @{$ares->[2]};';
+        } else {
+            $args_var = '$args';
+            $args_line = 'my $args = $ares->[2];';
+        }
+    } elsif ($args_as eq 'object') {
+        die "Sorry, args_as 'object' is not supported yet";
+    } else {
+        die "Invalid args_as: $args_as, must be hash/hashref/".
+            "array/arrayref/object";
+    }
+    $wrapper->add_line("    $args_line");
+
+    $wrapper->add_line(
         '    my $res;',
     );
 
     $wrapper->call_handlers("before_eval", $spec);
     $wrapper->add_line('eval {');
     $wrapper->call_handlers("before_call", $spec);
-    $wrapper->add_line('$res = $'.$subname.'->(%args);');
+    $wrapper->add_line('$res = $'.$subname."->($args_var);");
     $wrapper->add_line('};');
     $wrapper->add_line(
         '    my $eval_err = $@;',
@@ -143,7 +178,7 @@ Sub::Spec::Wrapper - Wrap subroutine to its implement Sub::Spec clauses
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 
@@ -180,17 +215,11 @@ Arguments (C<*> denotes required arguments):
 
 =over 4
 
-=item * B<force> => I<bool> (default C<0>)
+=item * B<force> => I<bool>
 
-Whether to force wrap again even when sub has been wrapped.
+=item * B<spec> => I<hash>
 
-=item * B<spec>* => I<hash>
-
-The sub spec.
-
-=item * B<sub>* => I<code>
-
-The code to wrap.
+=item * B<sub> => I<code>
 
 =back
 

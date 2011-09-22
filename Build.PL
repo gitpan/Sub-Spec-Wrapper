@@ -17,12 +17,13 @@ my %module_build_args = (
     'Steven Haryanto <stevenharyanto@gmail.com>'
   ],
   'dist_name' => 'Sub-Spec-Wrapper',
-  'dist_version' => '0.02',
+  'dist_version' => '0.03',
   'license' => 'perl',
   'module_name' => 'Sub::Spec::Wrapper',
   'recommends' => {},
   'recursive_test_files' => 1,
   'requires' => {
+    'Data::Dump::OneLine' => '0',
     'Log::Any' => '0',
     'Sub::Spec' => '1.0.1',
     'Test::More' => '0.96',

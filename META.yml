@@ -14,6 +14,7 @@ meta-spec:
   version: 1.4
 name: Sub-Spec-Wrapper
 requires:
+  Data::Dump::OneLine: 0
   Log::Any: 0
   Sub::Spec: 1.0.1
   Test::More: 0.96
@@ -21,4 +22,4 @@ requires:
 resources:
   homepage: http://search.cpan.org/dist/Sub-Spec-Wrapper/
   repository: http://github.com/sharyanto/perl-Sub-Spec-Wrapper
-version: 0.02
+version: 0.03
