@@ -17,9 +17,10 @@ requires:
   Data::Dump::OneLine: 0
   Log::Any: 0
   Sub::Spec: 1.0.1
+  Sub::Spec::ConvertArgs::Array: 0
   Test::More: 0.96
   perl: 5.010000
 resources:
   homepage: http://search.cpan.org/dist/Sub-Spec-Wrapper/
   repository: http://github.com/sharyanto/perl-Sub-Spec-Wrapper
-version: 0.03
+version: 0.04

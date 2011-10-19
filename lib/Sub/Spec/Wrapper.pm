@@ -7,12 +7,13 @@ use Log::Any '$log';
 
 use Data::Dump::OneLine qw(dump1);
 use Scalar::Util qw(blessed refaddr);
+use Sub::Spec::Util;
 
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(wrap_sub);
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 our %SPEC;
 
@@ -68,13 +69,11 @@ sub wrap_sub {
     );
 
     my $args_as = $spec->{args_as} // "hash";
-    my $args_var;
+    my $args_var = Sub::Spec::Util::parse_args_as($args_as)->{args_var};
     my $args_line;
     if ($args_as eq 'hash') {
-        $args_var = '%args';
         $args_line = 'my %args = @_;';
     } elsif ($args_as eq 'hashref') {
-        $args_var = '$args';
         $args_line = 'my $args = {@_};';
     } elsif ($args_as =~ /\A(arrayref|array)\z/) {
         # temp, eventually will use codegen_convert_args_to_array()
@@ -85,10 +84,8 @@ sub wrap_sub {
             '    return $ares if $ares->[0] != 200;',
             );
         if ($args_as eq 'array') {
-            $args_var = '@args';
             $args_line = 'my @args = @{$ares->[2]};';
         } else {
-            $args_var = '$args';
             $args_line = 'my $args = $ares->[2];';
         }
     } elsif ($args_as eq 'object') {
@@ -178,7 +175,7 @@ Sub::Spec::Wrapper - Wrap subroutine to its implement Sub::Spec clauses
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
@@ -215,11 +212,17 @@ Arguments (C<*> denotes required arguments):
 
 =over 4
 
-=item * B<force> => I<bool>
+=item * B<force> => I<bool> (default C<0>)
 
-=item * B<spec> => I<hash>
+Whether to force wrap again even when sub has been wrapped.
 
-=item * B<sub> => I<code>
+=item * B<spec>* => I<hash>
+
+The sub spec.
+
+=item * B<sub>* => I<code>
+
+The code to wrap.
 
 =back
 

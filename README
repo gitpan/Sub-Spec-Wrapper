@@ -2,7 +2,7 @@ NAME
     Sub::Spec::Wrapper - Wrap subroutine to its implement Sub::Spec clauses
 
 VERSION
-    version 0.03
+    version 0.04
 
 SYNOPSIS
      use Sub::Spec::Wrapper qw(wrap_sub);
@@ -33,11 +33,17 @@ FUNCTIONS
 
     Arguments ("*" denotes required arguments):
 
-    *   force => *bool*
+    *   force => *bool* (default 0)
 
-    *   spec => *hash*
+        Whether to force wrap again even when sub has been wrapped.
 
-    *   sub => *code*
+    *   spec* => *hash*
+
+        The sub spec.
+
+    *   sub* => *code*
+
+        The code to wrap.
 
 SEE ALSO
     Sub::Spec

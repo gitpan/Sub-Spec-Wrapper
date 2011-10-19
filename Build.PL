@@ -17,7 +17,7 @@ my %module_build_args = (
     'Steven Haryanto <stevenharyanto@gmail.com>'
   ],
   'dist_name' => 'Sub-Spec-Wrapper',
-  'dist_version' => '0.03',
+  'dist_version' => '0.04',
   'license' => 'perl',
   'module_name' => 'Sub::Spec::Wrapper',
   'recommends' => {},
@@ -26,6 +26,7 @@ my %module_build_args = (
     'Data::Dump::OneLine' => '0',
     'Log::Any' => '0',
     'Sub::Spec' => '1.0.1',
+    'Sub::Spec::ConvertArgs::Array' => '0',
     'Test::More' => '0.96',
     'perl' => '5.010000'
   },
