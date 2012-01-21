@@ -6,31 +6,31 @@ use Module::Build 0.3601;
 
 
 my %module_build_args = (
-  'build_requires' => {
-    'Module::Build' => '0.3601'
+  "build_requires" => {
+    "Module::Build" => "0.3601"
   },
-  'configure_requires' => {
-    'Module::Build' => '0.3601'
+  "configure_requires" => {
+    "Module::Build" => "0.3601"
   },
-  'dist_abstract' => 'Wrap subroutine to its implement Sub::Spec clauses',
-  'dist_author' => [
-    'Steven Haryanto <stevenharyanto@gmail.com>'
+  "dist_abstract" => "Wrap subroutine to its implement Sub::Spec clauses",
+  "dist_author" => [
+    "Steven Haryanto <stevenharyanto\@gmail.com>"
   ],
-  'dist_name' => 'Sub-Spec-Wrapper',
-  'dist_version' => '0.04',
-  'license' => 'perl',
-  'module_name' => 'Sub::Spec::Wrapper',
-  'recommends' => {},
-  'recursive_test_files' => 1,
-  'requires' => {
-    'Data::Dump::OneLine' => '0',
-    'Log::Any' => '0',
-    'Sub::Spec' => '1.0.1',
-    'Sub::Spec::ConvertArgs::Array' => '0',
-    'Test::More' => '0.96',
-    'perl' => '5.010000'
+  "dist_name" => "Sub-Spec-Wrapper",
+  "dist_version" => "0.05",
+  "license" => "perl",
+  "module_name" => "Sub::Spec::Wrapper",
+  "recommends" => {},
+  "recursive_test_files" => 1,
+  "requires" => {
+    "Data::Dump::OneLine" => 0,
+    "Log::Any" => 0,
+    "Sub::Spec" => "1.0.1",
+    "Sub::Spec::ConvertArgs::Array" => 0,
+    "Test::More" => "0.96",
+    "perl" => "5.010000"
   },
-  'script_files' => []
+  "script_files" => []
 );
 
 
